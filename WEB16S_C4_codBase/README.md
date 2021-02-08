@@ -12,4 +12,3 @@ Resuelve la creación de las operaciones de una calculadora, como parte del proy
    Ej 4: 4+/-, automáticamente se pone S(4)-2=-6
    Ej 5: 4R, automáticamente se pone R(4)=2
    Ej 6: 4M=FALSE; 7M=TRUE
-3. 
