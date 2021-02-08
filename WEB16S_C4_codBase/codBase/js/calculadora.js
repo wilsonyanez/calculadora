@@ -6,6 +6,7 @@ function cambiarColorBotonesAccion(elemento){
 
   }
 }
+
 function retornarColorBotonesAccion(elemento){
   elemento.style.background = "#9b9b9b";
   if (elemento.children[0]) {
@@ -31,42 +32,59 @@ function reducirTamañoBotonAccion(elemento){
 }
 
 function capturarBotonAccion(elemento){
-  
+
   var ls_actual = document.getElementById('display').innerHTML;
   var ls_sumado = elemento.alt;
+  var ls_cadena = ls_actual + ls_sumado;
+  var lr_resultado = 0.0;
 
   switch (ls_sumado) {
-    case 'on':
+    case 'On':
 	  // Elimina todos los elementos del almacenamiento en el navegador
       localStorage.clear();
       document.getElementById('display').innerHTML = 0;
       break;
     case '=':
 	  // Ejecuta la operación registrada en pantalla
-	  let ls_cadena = ls_actual + ls_sumado;
-      igual(ls_cadena);
+      igual(ls_actual);
       break;
-    case 'r', 's':
-      let sumado = operadorUnitario(actual, ls_sumado);
-      document.getElementById('display').innerHTML = sumado ;
+    case 'r':
+      ls_cadena = operadorUnitario(ls_actual, ls_sumado);
+      document.getElementById('display').innerHTML = ls_cadena ;
+      break;
+    case 's':
+      ls_cadena = operadorUnitario(ls_actual, ls_sumado);
+      document.getElementById('display').innerHTML = ls_cadena ;
       break;
     case '.':
 	  // buscar el simbolo periodo, si ya está no lo deja crear nuevamente.
-      if (ls_actual == '.') {
-        ls_actual = "";
-      }
-      document.getElementById('display').innerHTML = ls_actual + ls_sumado;
+      ls_cadena = obtenerPunto () ;
+	  if (ls_cadena != ls_actual) {
+        document.getElementById('display').innerHTML = ls_actual + ls_sumado;
+      } else {
+        if (ls_actual.includes(ls_sumado)) {
+          document.getElementById('display').innerHTML = ls_actual;
+        } else {
+          document.getElementById('display').innerHTML = ls_actual + ls_sumado;
+	    }
+	  }
       break;
     default:
       if (ls_actual.length == 1 && ls_actual == '0') {
         ls_actual = "";
       }
-      document.getElementById('display').innerHTML = ls_actual + ls_sumado;
+
+      let li_res = ls_cadena.length; 
+      if (li_res > 8) {
+        lr_resultado = parseFloat(ls_cadena.substring(0,8));
+        document.getElementById('display').innerHTML = lr_resultado;
+      } else {
+        document.getElementById('display').innerHTML = ls_actual + ls_sumado;
+      }
       break;
   }
-  
-}
 
+}
 
 /*-------------------------------------------------------------------------------*/
 
@@ -104,189 +122,6 @@ var Eventos = {
 
 
 Eventos.init();
-
-/*-------------------------------------------------------------------------------*/
-
-/*
-document.getElementById("nro1").addEventListener("click", nro1);
-document.getElementById("nro2").addEventListener("click", nro2);
-document.getElementById("nro3").addEventListener("click", nro3);
-document.getElementById("nro4").addEventListener("click", nro4);
-document.getElementById("nro5").addEventListener("click", nro5);
-document.getElementById("nro6").addEventListener("click", nro6);
-document.getElementById("nro7").addEventListener("click", nro7);
-document.getElementById("nro8").addEventListener("click", nro8);
-document.getElementById("nro9").addEventListener("click", nro9);
-document.getElementById("nro0").addEventListener("click", nro0);
-
-document.getElementById("on").addEventListener("click", on);
-document.getElementById("sign").addEventListener("click", sign);
-document.getElementById("raiz").addEventListener("click", raiz);
-document.getElementById("dividido").addEventListener("click", dividido);
-document.getElementById("por").addEventListener("click", por);
-document.getElementById("menos").addEventListener("click", menos);
-document.getElementById("punto").addEventListener("click", punto);
-document.getElementById("igual").addEventListener("click", igual);
-document.getElementById("mas").addEventListener("click", mas);
-document.getElementById("mers").addEventListener("click", mers);
-*/
-
-/*
-function nro1 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro1').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro2 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro2').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro3 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro3').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro4 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro4').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro5 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro5').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro6 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro6').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro7 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro7').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro8 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro8').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro9 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro9').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro0 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro0').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-*/
-
-/*
-function on () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('on').alt;
-	// Elimina todos los elementos
-  localStorage.clear();
-  document.getElementById('display').innerHTML = 0;
-}
-*/
-/*
-function sign () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = operadorUnitario(actual, 's');
-  document.getElementById('display').innerHTML = sumado ;
-}
-
-function raiz () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = operadorUnitario(actual, 'r');
-  document.getElementById('display').innerHTML = sumado ;
-}
-*/
-
-/*
-function dividido () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('dividido').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-
-function por () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('por').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-
-function menos () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('menos').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-
-function mas () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('mas').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-*/
-
-/*
-function punto () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('punto').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-
-function mers () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('mers').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-*/
-
 
 /*-------------------------------------------------------------------------------*/
 
@@ -342,6 +177,35 @@ class Pila {
 }
 
 // Obtener la cadena de ejecución en la pantalla de la calculadora
+function obtenerPunto () {
+  var la_operacion_nivel_1 = ['m', 'r', 's'];
+  var la_operacion_nivel_2 = ['*', '/'];
+  var la_operacion_nivel_3 = ['+', '-'];
+  var ls_o, ls_operador, ls_cadena_tmp, ls_cadena, li_posopeniv1, li_posopeniv2, li_posopeniv3;
+
+  ls_cadena_tmp = document.getElementById('display').innerHTML;
+  li_posopeniv1 = consultaOperadorNivel(la_operacion_nivel_1, ls_cadena_tmp) ;
+  li_posopeniv2 = consultaOperadorNivel(la_operacion_nivel_2, ls_cadena_tmp) ;
+  li_posopeniv3 = consultaOperadorNivel(la_operacion_nivel_3, ls_cadena_tmp) ;
+
+  if (!((li_posopeniv1 > 0) || (li_posopeniv2 > 0) || (li_posopeniv3 > 0))) {
+    ls_operador = consultarOperador();
+    ls_o = consultarOperando();
+    ls_cadena = document.getElementById('display').innerHTML + ls_o ; //+ ls_operador;
+  } else {
+	if (li_posopeniv1 > 0) {
+      ls_cadena = document.getElementById('display').innerHTML.substring(li_posopeniv1);
+	} else if (li_posopeniv2 > 0) {
+      ls_cadena = document.getElementById('display').innerHTML.substring(li_posopeniv2);
+	} else if (li_posopeniv3 > 0) {
+      ls_cadena = document.getElementById('display').innerHTML.substring(li_posopeniv3);
+	}
+  }
+  
+  return ls_cadena ;
+}
+
+// Obtener la cadena de ejecución en la pantalla de la calculadora
 function obtenerCadena (aa_operacion_nivel_1, aa_operacion_nivel_2, aa_operacion_nivel_3) {
   var li_o, ls_o, ls_operador, ls_cadena_tmp, ls_cadena, li_posopeniv1, li_posopeniv2, li_posopeniv3;
 
@@ -381,6 +245,7 @@ function igual (as_cadena) {
   var pila = new Pila();
 
   var ls_cadena = obtenerCadena (la_operacion_nivel_1, la_operacion_nivel_2, la_operacion_nivel_3);
+  var lr_resultado = 0.00;
 
   operadorNivel(la_operacion_nivel_1, la_operadores_nivel_1, la_indices_nivel_1, ls_cadena);
     operadorNivel(la_operacion, la_operadores_niv1, la_indices_niv1, ls_cadena);
@@ -406,7 +271,13 @@ function igual (as_cadena) {
     ordenarOperadorNivel(la_indices_niv3, la_orden_indices_niv3, la_orden_operadores_niv3);
   ls_cadena = operacionNivel (pila, la_orden_indices_niv3, la_orden_indices_nivel_3, la_orden_operadores_niv3, la_orden_operadores_nivel_3, 3, ls_cadena) ;
 
-  document.getElementById('display').innerHTML = pila.pop();
+  lr_resultado = pila.pop();
+  var lr_resTruncado = lr_resultado.toFixed(6); 
+  let li_res = ls_cadena.length; 
+  if (li_res >= 6) {
+	lr_resultado = lr_resTruncado;
+  }
+  document.getElementById('display').innerHTML = lr_resultado;
 
 }
 
