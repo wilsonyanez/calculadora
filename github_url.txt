@@ -1,4 +1,0 @@
-URL, con la dirección del proyecto calculadora,
-realizado por Wilson Yánez:
-
-https://github.com/wilsonyanez/calculadora

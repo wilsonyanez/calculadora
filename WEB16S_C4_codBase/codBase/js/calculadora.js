@@ -1,293 +1,3 @@
-
-function cambiarColorBotonesAccion(elemento){
-  elemento.style.background = "#4d62d0";
-  if (elemento.children[0]) {
-    elemento.children[0].style.background = "inherit";
-
-  }
-}
-function retornarColorBotonesAccion(elemento){
-  elemento.style.background = "#9b9b9b";
-  if (elemento.children[0]) {
-    elemento.children[0].style.background = "inherit";
-  }
-}
-
-function aumentarTamañoBotonAccion(elemento){
-  elemento.style.width = "22%";
-  elemento.style.height= "19%";
-  if (elemento.children[0]) {
-    elemento.children[0].style.background = "inherit";
-
-  }
-}
-
-function reducirTamañoBotonAccion(elemento){
-  elemento.style.width = "20%";
-  elemento.style.height= "17%";
-  if (elemento.children[0]) {
-    elemento.children[0].style.background = "inherit";
-  }
-}
-
-function capturarBotonAccion(elemento){
-  
-  var ls_actual = document.getElementById('display').innerHTML;
-  var ls_sumado = elemento.alt;
-
-  switch (ls_sumado) {
-    case 'on':
-	  // Elimina todos los elementos del almacenamiento en el navegador
-      localStorage.clear();
-      document.getElementById('display').innerHTML = 0;
-      break;
-    case '=':
-	  // Ejecuta la operación registrada en pantalla
-	  let ls_cadena = ls_actual + ls_sumado;
-      igual(ls_cadena);
-      break;
-    case 'r', 's':
-      let sumado = operadorUnitario(actual, ls_sumado);
-      document.getElementById('display').innerHTML = sumado ;
-      break;
-    case '.':
-	  // buscar el simbolo periodo, si ya está no lo deja crear nuevamente.
-      if (ls_actual == '.') {
-        ls_actual = "";
-      }
-      document.getElementById('display').innerHTML = ls_actual + ls_sumado;
-      break;
-    default:
-      if (ls_actual.length == 1 && ls_actual == '0') {
-        ls_actual = "";
-      }
-      document.getElementById('display').innerHTML = ls_actual + ls_sumado;
-      break;
-  }
-  
-}
-
-
-/*-------------------------------------------------------------------------------*/
-
-var Eventos = {
-  init: function(){
-    document.onkeypress = this.eventoSonido;
-    this.asignarEventosBotones('tecla');
-  },
-  asignarEventosBotones: function(selector){
-    var botonesPagina = document.getElementsByClassName(selector);
-    for (var i = 0; i < botonesPagina.length; i++) {
-      botonesPagina[i].onmouseover = this.eventoColorBotones;
-      botonesPagina[i].onmouseleave = this.eventoRetornarColorBotones;
-      botonesPagina[i].onmouseover = this.eventoReducirTamañoBotonAccion;
-      botonesPagina[i].onmouseleave = this.eventoAumentarTamañoBotonAccion;
-      botonesPagina[i].onclick = this.eventoCapturarBotonAccion;
-    }
-  },
-  eventoColorBotones: function(event){
-    cambiarColorBotonesAccion(event.target);
-  },
-  eventoRetornarColorBotones: function(event){
-    retornarColorBotonesAccion(event.target);
-  },
-  eventoAumentarTamañoBotonAccion: function(event){
-    aumentarTamañoBotonAccion(event.target);
-  },
-  eventoReducirTamañoBotonAccion: function(event){
-    reducirTamañoBotonAccion(event.target);
-  },
-  eventoCapturarBotonAccion: function(event){
-    capturarBotonAccion(event.target);
-  },
-}
-
-
-Eventos.init();
-
-/*-------------------------------------------------------------------------------*/
-
-/*
-document.getElementById("nro1").addEventListener("click", nro1);
-document.getElementById("nro2").addEventListener("click", nro2);
-document.getElementById("nro3").addEventListener("click", nro3);
-document.getElementById("nro4").addEventListener("click", nro4);
-document.getElementById("nro5").addEventListener("click", nro5);
-document.getElementById("nro6").addEventListener("click", nro6);
-document.getElementById("nro7").addEventListener("click", nro7);
-document.getElementById("nro8").addEventListener("click", nro8);
-document.getElementById("nro9").addEventListener("click", nro9);
-document.getElementById("nro0").addEventListener("click", nro0);
-
-document.getElementById("on").addEventListener("click", on);
-document.getElementById("sign").addEventListener("click", sign);
-document.getElementById("raiz").addEventListener("click", raiz);
-document.getElementById("dividido").addEventListener("click", dividido);
-document.getElementById("por").addEventListener("click", por);
-document.getElementById("menos").addEventListener("click", menos);
-document.getElementById("punto").addEventListener("click", punto);
-document.getElementById("igual").addEventListener("click", igual);
-document.getElementById("mas").addEventListener("click", mas);
-document.getElementById("mers").addEventListener("click", mers);
-*/
-
-/*
-function nro1 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro1').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro2 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro2').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro3 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro3').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro4 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro4').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro5 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro5').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro6 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro6').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro7 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro7').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro8 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro8').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro9 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro9').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-function nro0 () {
-  let actual = document.getElementById('display').innerHTML;
-  if (actual.length == 1 && actual == '0') {
-    actual = "";
-  }
-  let sumado = document.getElementById('nro0').alt;
-  document.getElementById('display').innerHTML = actual + sumado;
-}
-
-*/
-
-/*
-function on () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('on').alt;
-	// Elimina todos los elementos
-  localStorage.clear();
-  document.getElementById('display').innerHTML = 0;
-}
-*/
-/*
-function sign () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = operadorUnitario(actual, 's');
-  document.getElementById('display').innerHTML = sumado ;
-}
-
-function raiz () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = operadorUnitario(actual, 'r');
-  document.getElementById('display').innerHTML = sumado ;
-}
-*/
-
-/*
-function dividido () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('dividido').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-
-function por () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('por').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-
-function menos () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('menos').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-
-function mas () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('mas').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-*/
-
-/*
-function punto () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('punto').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-
-function mers () {
-  let actual = document.getElementById('display').innerHTML;
-  let sumado = document.getElementById('mers').alt;
-  document.getElementById('display').innerHTML = actual + sumado ;
-}
-*/
-
-
 /*-------------------------------------------------------------------------------*/
 
 // Clase Stack
@@ -341,10 +51,11 @@ class Pila {
     }
 }
 
-// Obtener la cadena de ejecución en la pantalla de la calculadora
-function obtenerCadena (aa_operacion_nivel_1, aa_operacion_nivel_2, aa_operacion_nivel_3) {
+// Obtener la cadena de ejecución en la pantalla
+function obtenerCadena (aa_operacion_nivel_1, aa_operacion_nivel_2, aa_operacion_nivel_3, as_actual, as_sumado) {
   var li_o, ls_o, ls_operador, ls_cadena_tmp, ls_cadena, li_posopeniv1, li_posopeniv2, li_posopeniv3;
 
+//  ls_cadena_tmp = as_actual + as_sumado;
   ls_cadena_tmp = document.getElementById('display').innerHTML;
   li_posopeniv1 = consultaOperadorNivel(aa_operacion_nivel_1, ls_cadena_tmp) ;
   li_posopeniv2 = consultaOperadorNivel(aa_operacion_nivel_2, ls_cadena_tmp) ;
@@ -354,15 +65,15 @@ function obtenerCadena (aa_operacion_nivel_1, aa_operacion_nivel_2, aa_operacion
   if ((li_o >= 1) && !((li_posopeniv1 > 0) || (li_posopeniv2 > 0) || (li_posopeniv3 > 0))) {
     ls_operador = consultarOperador();
     ls_o = consultarOperando();
-    ls_cadena = document.getElementById('display').innerHTML + ls_o + ls_operador;
+    ls_cadena = ls_cadena_tmp + ls_o + ls_operador;
   } else {
-    ls_cadena = document.getElementById('display').innerHTML;
+    ls_cadena = ls_cadena_tmp;
   }
   
   return ls_cadena ;
 }
 
-function igual (as_cadena) {
+function igual (as_actual, as_sumado) {
 
   var la_operacion = ['m', 'r', 's', '*', '/', '+', '-'];
 
@@ -378,9 +89,10 @@ function igual (as_cadena) {
   var la_operadores_nivel_1 = [], la_operadores_nivel_2 = [], la_operadores_nivel_3 = [];
   var la_orden_operadores_niv1 = [], la_orden_operadores_niv2 = [], la_orden_operadores_niv3 = [];
   var la_orden_operadores_nivel_1 = [], la_orden_operadores_nivel_2 = [], la_orden_operadores_nivel_3 = [];
+  var li_longitudres = 0, lr_resultado = 0.00, li_pospunto = 0;
   var pila = new Pila();
 
-  var ls_cadena = obtenerCadena (la_operacion_nivel_1, la_operacion_nivel_2, la_operacion_nivel_3);
+  var ls_cadena = obtenerCadena (la_operacion_nivel_1, la_operacion_nivel_2, la_operacion_nivel_3, as_actual, as_sumado);
 
   operadorNivel(la_operacion_nivel_1, la_operadores_nivel_1, la_indices_nivel_1, ls_cadena);
     operadorNivel(la_operacion, la_operadores_niv1, la_indices_niv1, ls_cadena);
@@ -406,7 +118,17 @@ function igual (as_cadena) {
     ordenarOperadorNivel(la_indices_niv3, la_orden_indices_niv3, la_orden_operadores_niv3);
   ls_cadena = operacionNivel (pila, la_orden_indices_niv3, la_orden_indices_nivel_3, la_orden_operadores_niv3, la_orden_operadores_nivel_3, 3, ls_cadena) ;
 
-  document.getElementById('display').innerHTML = pila.pop();
+  lr_resultado = pila.pop();
+
+  li_longitudres = ls_cadena.length;
+  if (li_longitudres > 8) {
+    li_pospunto = consultaPunto(ls_cadena, '.') + 1;
+	li_pospunto = 8 - li_pospunto; 
+	lr_resultado = parseFloat(ls_cadena);
+	lr_resultado = lr_resultado.toFixed(li_pospunto);
+  }
+
+  return lr_resultado;
 
 }
 
@@ -429,6 +151,21 @@ function operadorUnitario(as_cadena_operacion, as_tipo_operador){
   ls_operador2 = ")";
   ln_resultado = as_cadena_operacion.substring(la_orden_indices[la_indices.length - 1] + 1, as_cadena_operacion.length);
   return ls_operador1 + as_tipo_operador + "(" + ln_resultado + ls_operador2;
+
+}
+
+// Consulta la existencia y posición de caracter punto en los arreglos de operadores por cada nivel
+function consultaPunto(as_cadena_operacion, as_caracter){
+
+  var li_i = 0;
+  var li_idxcar = as_cadena_operacion.indexOf(as_caracter);
+
+  while (li_idxcar != -1) {
+    li_i = li_i + li_idxcar;
+    li_idxcar = as_cadena_operacion.indexOf(as_caracter, li_idxcar + 1);
+  }
+
+  return li_i;
 
 }
 
@@ -559,6 +296,7 @@ function evaluacionItemsPila(pila, as_cadena){
   return pila.peek();
 }
 
+// Almacena en la memoria del navegador la operación en ejecución de forma temporal
 function guardarOperacion(as_operando, ar_operador) {
   var li_val = 0; 
 
@@ -571,6 +309,7 @@ function guardarOperacion(as_operando, ar_operador) {
   localStorage.setItem('valor', JSON.stringify(valor));
 }
 
+// Consulta en la memoria del navegador la operación en ejecución
 function consultarOperando() {
   var valor = JSON.parse(localStorage.getItem('valor'));
   var ls_operando = "";
@@ -582,6 +321,7 @@ function consultarOperando() {
   return ls_operando;
 }
 
+// Consulta en la memoria del navegador el operador almacenado
 function consultarOperador() {
   var valor = JSON.parse(localStorage.getItem('valor'));
   var lr_operador = 0.0;
@@ -604,6 +344,7 @@ function consultarContador() {
   return li_valor;
 }
 
+// Guarda en un arreglo, todas las operaciones que se deben ejecutar
 function operacionNivel (pila, aa_orden_indices, aa_orden_indices_nivel, aa_orden_operadores, aa_orden_operadores_nivel, an_nivel, as_cadena_operacion) {
 
   var li_k = 0;
@@ -708,16 +449,3 @@ function operacionNivel (pila, aa_orden_indices, aa_orden_indices_nivel, aa_orde
 
   return ls_cadena;
 }
-
-// Función que permite cambiar el tamaño de las teclas.
-function cambiaTamanioTecla(){
-  if (document.images) {
-    document.images.logo.width=200;
-    document.images.logo.height=200;
-  } else {
-    logo = document.getElementById("nro1");
-    logo.width = 200;
-    logo.height = 200; 
-  }
-}
-
