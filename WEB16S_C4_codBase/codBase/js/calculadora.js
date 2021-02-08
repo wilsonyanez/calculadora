@@ -69,7 +69,7 @@ function obtenerCadena (aa_operacion_nivel_1, aa_operacion_nivel_2, aa_operacion
   } else {
     ls_cadena = ls_cadena_tmp;
   }
-  
+
   return ls_cadena ;
 }
 
@@ -123,7 +123,7 @@ function igual (as_actual, as_sumado) {
   li_longitudres = ls_cadena.length;
   if (li_longitudres > 8) {
     li_pospunto = consultaPunto(ls_cadena, '.') + 1;
-	li_pospunto = 8 - li_pospunto; 
+	li_pospunto = 8 - li_pospunto;
 	lr_resultado = parseFloat(ls_cadena);
 	lr_resultado = lr_resultado.toFixed(li_pospunto);
   }
@@ -290,7 +290,7 @@ function evaluacionItemsPila(pila, as_cadena){
     case 'm':
         pila.push(primoMersenne(val2));
         break;
-		
+
     }
   }
   return pila.peek();
@@ -298,7 +298,7 @@ function evaluacionItemsPila(pila, as_cadena){
 
 // Almacena en la memoria del navegador la operación en ejecución de forma temporal
 function guardarOperacion(as_operando, ar_operador) {
-  var li_val = 0; 
+  var li_val = 0;
 
   li_val = consultarContador() + 1;
   var valor = {
@@ -315,8 +315,8 @@ function consultarOperando() {
   var ls_operando = "";
 
   if ( valor != null ) {
-	ls_operando = valor.operando ; 
-  } ; 
+	ls_operando = valor.operando ;
+  } ;
 
   return ls_operando;
 }
@@ -327,8 +327,8 @@ function consultarOperador() {
   var lr_operador = 0.0;
 
   if ( valor != null ) {
-    lr_operador = valor.operador ; 
-  } ; 
+    lr_operador = valor.operador ;
+  } ;
 
   return lr_operador;
 }
@@ -339,7 +339,7 @@ function consultarContador() {
 
   if ( valor != null ) {
     li_valor = valor.contador;
-  } ; 
+  } ;
 
   return li_valor;
 }
@@ -426,7 +426,7 @@ function operacionNivel (pila, aa_orden_indices, aa_orden_indices_nivel, aa_orde
 		  }
         }
 
-        ln_resultado = evaluacionItemsPila(pila, ls_operador1);			
+        ln_resultado = evaluacionItemsPila(pila, ls_operador1);
         ln_resultado = evaluacionItemsPila(pila, ls_operador2);
         ln_resultado = evaluacionItemsPila(pila, aa_orden_operadores_nivel[li_j]);
 
