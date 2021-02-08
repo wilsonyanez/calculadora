@@ -149,6 +149,7 @@ var Eventos = {
   },
   eventoCapturarBotonAccion: function(event){
     capturarBotonAccion(event.target);
+  },
 }
 
 
